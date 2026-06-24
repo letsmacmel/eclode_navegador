@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eclode — Mutação</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-lockup">
+        <img src="../data/eclode_header_logo.svg" alt="Eclode" />
+        <span>SISTEMA GENERATIVO</span>
+      </div>
+      <nav class="tabs" aria-label="Áreas do aplicativo">
+        <button class="tab active">Mutação</button>
+        <button class="tab" disabled>Panfleto</button>
+        <button class="tab" disabled>Estampa</button>
+        <button class="tab" disabled>Exportação</button>
+      </nav>
+      <button id="exportPng" class="top-action">EXPORTAR PNG</button>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel panel-left">
+        <section>
+          <h1>Entrada</h1>
+          <h2>Fonte sonora</h2>
+          <div class="audio-status">
+            <span id="audioStatus">Simulação visual ativa</span>
+            <button id="micButton" class="mini-button">USAR MICROFONE</button>
+          </div>
+          <div id="soundPads" class="sound-pads" aria-label="Simulações de som">
+            <button class="sound-pad" data-sound="beat">BEAT</button>
+            <button class="sound-pad" data-sound="pulse">PULSO</button>
+            <button class="sound-pad" data-sound="noise">RUÍDO</button>
+            <button class="sound-pad" data-sound="car">CARRO</button>
+            <button class="sound-pad" data-sound="rain">CHUVA</button>
+            <button class="sound-pad" data-sound="street">RUA</button>
+          </div>
+          <div class="sound-intensity" aria-label="Intensidade do som">
+            <span>INTENSIDADE</span>
+            <button id="soundLess" class="mini-button" type="button">−</button>
+            <output id="soundIntensityValue">100%</output>
+            <button id="soundMore" class="mini-button" type="button">+</button>
+          </div>
+          <canvas id="audioMeter" width="260" height="42"></canvas>
+          <p class="hint">Os botões acima geram áudio real no navegador e alimentam a mutação.</p>
+        </section>
+
+        <section>
+          <h2>Aplicações de marca prontas</h2>
+          <div id="brandApps" class="brand-grid"></div>
+          <p id="brandName" class="file-name">eclode_header_logo.svg</p>
+        </section>
+
+        <section>
+          <h2>Identidade importada</h2>
+          <label class="button full">
+            CARREGAR SVG
+            <input id="svgInput" type="file" accept=".svg,image/svg+xml" hidden />
+          </label>
+          <label class="button full">
+            CARREGAR PNG/JPG
+            <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+          </label>
+          <button id="systemToggle" class="button full active">SISTEMA LIGADO</button>
+          <div class="button-grid two">
+            <button class="button bg-button active" data-bg="dark">FUNDO PRETO</button>
+            <button class="button bg-button" data-bg="light">FUNDO BRANCO</button>
+          </div>
+        </section>
+
+        <section>
+          <h1>Comportamento</h1>
+          <button id="randomize" class="button full accent">GERAR VARIAÇÃO</button>
+          <div class="button-grid two">
+            <button id="reset" class="button">RESTAURAR</button>
+            <button id="freeze" class="button">CONGELAR</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Densidade de pontos</h2>
+          <div id="pointSliders" class="sliders"></div>
+        </section>
+
+        <section>
+          <h2>Marca base</h2>
+          <div id="baseModes" class="button-grid two"></div>
+        </section>
+
+        <section>
+          <h2>Camadas generativas</h2>
+          <div id="generativeModes" class="button-grid two"></div>
+        </section>
+
+        <section>
+          <h2>Reação / deformação</h2>
+          <div id="deformationModes" class="button-grid two"></div>
+        </section>
+      </aside>
+
+      <section class="stage" aria-label="Prévia da mutação">
+        <canvas id="mutationCanvas"></canvas>
+        <div class="stage-hud">
+          <div>
+            <span class="eyebrow">IDENTIDADE ATIVA</span>
+            <strong id="hudMode">ORIGINAL · SUTIL</strong>
+          </div>
+          <div class="energy">
+            <span>ENERGIA</span>
+            <i id="energyDot"></i>
+            <b id="energyValue">0.00</b>
+          </div>
+        </div>
+        <div id="dropHint" class="drop-hint">SOLTE UMA MARCA AQUI</div>
+      </section>
+
+      <aside class="panel panel-right">
+        <section>
+          <h1>Parâmetros</h1>
+          <h2>Aparência da marca</h2>
+          <div class="color-row">
+            <label>Cor principal <input id="primaryColor" type="color" value="#a63df2" /></label>
+            <label>Cor secundária <input id="secondaryColor" type="color" value="#3d9df2" /></label>
+          </div>
+          <div class="palette-row">
+            <button class="swatch" data-palette="0" style="--swatch:#efebe8"></button>
+            <button class="swatch active" data-palette="1" style="--swatch:#a63df2"></button>
+            <button class="swatch" data-palette="2" style="--swatch:#ff6b24"></button>
+            <button class="swatch" data-palette="3" style="--swatch:#3d9df2"></button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Forma</h2>
+          <div id="shapeSliders" class="sliders"></div>
+        </section>
+
+        <section>
+          <h2>Movimento</h2>
+          <div id="motionSliders" class="sliders"></div>
+        </section>
+
+        <section>
+          <h2>Textura</h2>
+          <div id="textureSliders" class="sliders"></div>
+        </section>
+      </aside>
+    </main>
+
+    <div id="toast" role="status"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

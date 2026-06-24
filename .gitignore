@@ -1,0 +1,43 @@
+# Processing/autosave temporaries
+*.autosave
+.codex_processing_check_*/
+build/
+*.class
+*.pde
+sketch.properties
+.agents/
+apresentação/
+
+# Heavy local documents
+*.pdf
+
+# Generated exports
+panfleto_*.png
+panfleto_*.jpg
+panfleto_*.jpeg
+panfleto_*.mp4
+shape_*.png
+shape_*.jpg
+shape_*.jpeg
+shape_*.svg
+shape_video_*.mp4
+shape_video_*/
+eclode_marcas-*.png
+estampa_*.png
+estampa_*.jpg
+estampa_*.jpeg
+estampa_*.mp4
+
+# Runtime/media cache
+panfleto_media_cache/
+tools/
+
+# Imported user assets generated during experimentation
+data/imports/
+
+# Keep only lightweight app assets that are intentionally committed
+data/*
+!data/Inter_18pt-SemiBold.ttf
+!data/Inter_18pt-Regular.ttf
+!data/Inter_18pt-Bold.ttf
+!data/eclode_header_logo.svg
